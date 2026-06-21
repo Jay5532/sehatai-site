@@ -932,9 +932,27 @@ footer .brand img {
   margin: 0 0 14px;
 }
 
-.content-body ol {
+.content-body a {
+  color: var(--gold-light);
+  text-underline-offset: 4px;
+}
+
+.content-body ol,
+.content-body ul {
   margin: 10px 0 0;
   padding-left: 22px;
+}
+
+.content-body ul {
+  margin-bottom: 20px;
+}
+
+.content-body ol + p {
+  margin-top: 20px;
+}
+
+.content-body li ul {
+  margin: 10px 0 4px;
 }
 
 .content-body li {

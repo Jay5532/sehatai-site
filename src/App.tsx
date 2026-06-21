@@ -6,7 +6,15 @@ type PageContent = {
   sections: Array<{
     heading: string;
     paragraphs: string[];
-    steps?: string[];
+    steps?: Array<{
+      text: string;
+      email?: string;
+      suffix?: string;
+      bullets?: string[];
+    }>;
+    bullets?: string[];
+    afterBullets?: string[];
+    afterSteps?: string[];
   }>;
 };
 
@@ -102,83 +110,234 @@ const pages: Record<string, PageContent> = {
       {
         heading: 'Using SehatAI',
         paragraphs: [
-          'You must provide accurate account information, keep your login details secure, and use SehatAI only for lawful personal fitness and wellbeing purposes.',
-          'You may not misuse, disrupt, copy, reverse engineer, or attempt unauthorised access to the service.',
+          'You must provide accurate account information, keep your login credentials secure, and use SehatAI only for lawful fitness, wellness, and educational purposes.',
+          'You may not misuse, disrupt, copy, reverse engineer, attempt unauthorised access to, or interfere with the operation of SehatAI or its services.',
+          'You are responsible for all activity that occurs under your account.',
         ],
       },
       {
-        heading: 'Health notice',
+        heading: 'Health Notice',
         paragraphs: [
-          'SehatAI provides general fitness and nutrition information and is not a medical service. It does not diagnose, treat, or prevent medical conditions.',
-          'Consult a qualified healthcare professional before beginning a new fitness or nutrition programme, especially if you have an injury, medical condition, or health concern.',
+          'SehatAI provides general fitness, wellness, and nutrition information for educational and informational purposes only. SehatAI is not a medical service and does not provide medical advice, diagnosis, or treatment.',
+          'Always consult a qualified healthcare professional before starting a new fitness, exercise, or nutrition programme, particularly if you have a medical condition, injury, disability, or other health concern.',
+          'Any actions taken based on information provided by SehatAI are at your own risk.',
         ],
       },
       {
-        heading: 'Accounts and availability',
+        heading: 'AI-Generated Content',
         paragraphs: [
-          'We may update, suspend, or discontinue features as the product evolves. We may restrict accounts that breach these terms or create risk for SehatAI or its users.',
+          'Certain features of SehatAI use artificial intelligence to generate recommendations, workout plans, nutrition guidance, and other content.',
+          'While we strive to provide helpful and accurate information, AI-generated content may contain errors, omissions, or recommendations that are not suitable for every individual. Users should exercise their own judgment and seek professional advice where appropriate.',
+        ],
+      },
+      {
+        heading: 'Trainer Bookings and Third-Party Services',
+        paragraphs: [
+          'SehatAI may allow users to discover, communicate with, or book independent fitness trainers and service providers.',
+          'Trainers and service providers are independent parties and are not employees, agents, or representatives of SehatAI. SehatAI is not responsible for the conduct, services, advice, availability, or performance of third-party trainers or providers.',
+          'Users are responsible for evaluating the suitability of any trainer or service before engaging with them.',
+        ],
+      },
+      {
+        heading: 'Subscriptions and Payments',
+        paragraphs: [
+          'Certain features of SehatAI may require a paid subscription or purchase.',
+          "Subscription fees, billing periods, and available features may change over time. Where applicable, subscriptions purchased through app stores are managed by the relevant platform and are subject to that platform's billing and cancellation policies.",
+          'Failure to pay applicable fees may result in suspension or loss of access to premium features.',
+        ],
+      },
+      {
+        heading: 'Intellectual Property',
+        paragraphs: [
+          'SehatAI, its branding, content, software, designs, logos, and related materials are owned by SehatAI or its licensors and are protected by applicable intellectual property laws.',
+          'You may not reproduce, distribute, modify, sell, or exploit any part of SehatAI without prior written permission.',
+        ],
+      },
+      {
+        heading: 'Accounts and Availability',
+        paragraphs: [
+          'We may update, modify, suspend, or discontinue features, services, or content at any time as the product evolves.',
+          'We reserve the right to suspend, restrict, or terminate accounts that violate these Terms, create risk for other users, or negatively affect the security or operation of SehatAI.',
+        ],
+      },
+      {
+        heading: 'Limitation of Liability',
+        paragraphs: [
+          'To the maximum extent permitted by law, SehatAI and its operators shall not be liable for any indirect, incidental, consequential, special, or punitive damages arising from your use of the service.',
+          'Your use of SehatAI is at your own risk. The service is provided on an "as is" and "as available" basis without warranties of any kind.',
+        ],
+      },
+      {
+        heading: 'Changes to These Terms',
+        paragraphs: [
+          'We may update these Terms from time to time. Continued use of SehatAI after changes become effective constitutes acceptance of the updated Terms.',
         ],
       },
       {
         heading: 'Contact',
-        paragraphs: ['Questions about these terms can be sent to support@sehatai.net.'],
+        paragraphs: [
+          'Questions regarding these Terms may be sent to:',
+          'support@sehatai.net',
+        ],
       },
     ],
   },
   '/support': {
     title: 'Support',
-    intro: 'Help with your account, workouts, bookings, or the SehatAI app.',
+    intro: 'Help with your account, workouts, bookings, subscriptions, or the SehatAI app.',
     sections: [
       {
-        heading: 'Contact our team',
+        heading: 'Contact Our Team',
         paragraphs: [
-          'Email support@sehatai.net and include the email address linked to your account, a short description of the issue, and any useful screenshots.',
+          'For support, please email:',
+          'support@sehatai.net',
+          'To help us resolve your issue quickly, include:',
+        ],
+        bullets: [
+          'The email address linked to your SehatAI account',
+          'A brief description of the issue',
+          'Any relevant screenshots or error messages',
+          'The device you are using (Android, iPhone, etc.)',
+        ],
+        afterBullets: [
           'We aim to respond within two business days.',
         ],
       },
       {
-        heading: 'Before contacting support',
-        paragraphs: [],
-        steps: [
-          'Check that you are using the latest version of SehatAI.',
-          'Close and reopen the app, then try the action again.',
-          'Confirm your internet connection is stable.',
-          'Never include your password or sensitive payment details in an email.',
+        heading: 'Common Troubleshooting Steps',
+        paragraphs: ['Before contacting support, please try the following:'],
+        bullets: [
+          'Ensure you are using the latest version of SehatAI',
+          'Close and reopen the app',
+          'Sign out and sign back in',
+          'Confirm your internet connection is stable',
+          'Restart your device and try again',
         ],
       },
       {
-        heading: 'Safety concerns',
+        heading: 'Bookings and Trainer Support',
+        paragraphs: ['If your issue relates to a trainer booking, please include:'],
+        bullets: [
+          'Booking date and time',
+          'Trainer name',
+          'Description of the issue',
+        ],
+        afterBullets: [
+          'SehatAI may assist with communication and platform-related issues but is not responsible for services provided by independent trainers.',
+        ],
+      },
+      {
+        heading: 'Subscription Support',
+        paragraphs: ['For subscription-related issues, include:'],
+        bullets: [
+          'Your account email address',
+          'Purchase date (if known)',
+          'Screenshot of the subscription receipt if available',
+        ],
+        afterBullets: [
+          'Subscriptions purchased through Google Play are subject to Google Play billing policies and may need to be managed through your Google account.',
+        ],
+      },
+      {
+        heading: 'Security and Privacy',
+        paragraphs: ['Never send:'],
+        bullets: [
+          'Passwords',
+          'One-time verification codes',
+          'Payment card details',
+          'Sensitive personal information',
+        ],
+        afterBullets: [
+          'SehatAI will never ask for your password by email.',
+        ],
+      },
+      {
+        heading: 'Safety Notice',
         paragraphs: [
-          'Stop exercising and seek appropriate medical attention if you experience pain, dizziness, shortness of breath, or other concerning symptoms. SehatAI support cannot provide emergency or medical assistance.',
+          'Stop exercising immediately and seek appropriate medical attention if you experience pain, dizziness, shortness of breath, chest discomfort, or any other concerning symptoms.',
+          'SehatAI support cannot provide emergency, medical, or healthcare assistance.',
+          'If you believe you are experiencing a medical emergency, contact your local emergency services immediately.',
         ],
       },
     ],
   },
   '/delete-account': {
     title: 'Delete Your Account',
-    intro: 'You can request permanent deletion of your SehatAI account and associated data.',
+    intro: 'You can request permanent deletion of your SehatAI account and associated personal data.',
     sections: [
       {
-        heading: 'How to request deletion',
-        paragraphs: [],
+        heading: 'How to Request Deletion',
+        paragraphs: ['To request account deletion:'],
         steps: [
-          'Email support@sehatai.net from the email address registered to your SehatAI account.',
-          'Use the subject line "Delete my SehatAI account".',
-          'Include your full name and registered email address.',
-          'We will verify your request and confirm when deletion is complete.',
+          {
+            text: 'Email',
+            email: 'support@sehatai.net',
+            suffix: ' from the email address associated with your SehatAI account.',
+          },
+          {
+            text: 'Use the subject line: "Delete My SehatAI Account"',
+          },
+          {
+            text: 'Include:',
+            bullets: [
+              'Your full name',
+              'Registered email address',
+              'Any additional information that may help us verify your identity',
+            ],
+          },
+        ],
+        afterSteps: [
+          'For security purposes, we may request additional verification before processing your request.',
         ],
       },
       {
-        heading: 'What will be deleted',
+        heading: 'What Will Be Deleted',
         paragraphs: [
-          'Your profile, fitness preferences, workout history, nutrition records, and other personal app data will be permanently removed, subject to any information we must retain for legal, fraud-prevention, or security purposes.',
-          'Account deletion cannot be undone.',
+          'Once your request has been verified and processed, we will permanently delete or anonymise personal information associated with your SehatAI account, including:',
+        ],
+        bullets: [
+          'Profile information',
+          'Fitness goals and preferences',
+          'Workout history',
+          'Nutrition records',
+          'Booking history stored within SehatAI',
+          'Other personal app data associated with your account',
         ],
       },
       {
-        heading: 'Processing time',
+        heading: 'Information That May Be Retained',
         paragraphs: [
-          'Verified deletion requests are normally completed within 30 days. We will contact you if additional verification is required.',
+          'Certain information may be retained where required by law or for legitimate business purposes, including:',
+        ],
+        bullets: [
+          'Fraud prevention and security records',
+          'Legal compliance obligations',
+          'Dispute resolution records',
+          'Transaction or billing records where required by applicable laws',
+        ],
+        afterBullets: [
+          'Any retained information will be handled in accordance with our Privacy Policy.',
+        ],
+      },
+      {
+        heading: 'Subscriptions',
+        paragraphs: [
+          'Deleting your SehatAI account does not automatically cancel subscriptions purchased through Google Play or other app stores.',
+          'Subscriptions must be managed and cancelled through the platform from which they were purchased.',
+        ],
+      },
+      {
+        heading: 'Processing Time',
+        paragraphs: [
+          'Verified deletion requests are normally completed within 30 days.',
+          'We will notify you once the deletion process has been completed or if additional verification is required.',
+        ],
+      },
+      {
+        heading: 'Important',
+        paragraphs: [
+          'Account deletion is permanent and cannot be undone.',
+          'Once deleted, you may lose access to your account, workout history, preferences, and other associated data.',
         ],
       },
     ],
@@ -381,8 +540,31 @@ function ContentPage({ page }: { page: PageContent }) {
           {page.sections.map((section) => (
             <section key={section.heading}>
               <h2>{section.heading}</h2>
-              {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-              {section.steps && <ol>{section.steps.map((step) => <li key={step}>{step}</li>)}</ol>}
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph}>
+                  {paragraph === 'support@sehatai.net'
+                    ? <a href="mailto:support@sehatai.net">{paragraph}</a>
+                    : paragraph}
+                </p>
+              ))}
+              {section.bullets && <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
+              {section.afterBullets?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {section.steps && (
+                <ol>
+                  {section.steps.map((step) => (
+                    <li key={step.text}>
+                      {step.text}
+                      {step.email && (
+                        <>
+                          {' '}<a href={`mailto:${step.email}`}>{step.email}</a>{step.suffix}
+                        </>
+                      )}
+                      {step.bullets && <ul>{step.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
+                    </li>
+                  ))}
+                </ol>
+              )}
+              {section.afterSteps?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </section>
           ))}
         </div>
