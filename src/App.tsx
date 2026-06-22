@@ -1,8 +1,10 @@
+import type { FormEvent } from 'react';
 import './App.css';
 
 type PageContent = {
   title: string;
   intro: string;
+  showUpdated?: boolean;
   sections: Array<{
     heading: string;
     paragraphs: string[];
@@ -51,6 +53,35 @@ const appScreens = [
 ];
 
 const pages: Record<string, PageContent> = {
+  '/about': {
+    title: 'About SehatAI',
+    intro: 'Fitness guidance made more accessible, personalised, and relevant for people across Pakistan.',
+    showUpdated: false,
+    sections: [
+      {
+        heading: 'About SehatAI',
+        paragraphs: [
+          'SehatAI was created to make fitness guidance more accessible, personalised, and relevant for people across Pakistan.',
+          'Many fitness apps are built for Western audiences and often overlook local languages, food habits, lifestyles, and cultural needs. SehatAI aims to bridge that gap by combining artificial intelligence with practical fitness and nutrition guidance designed for Pakistani users.',
+          'Our platform helps users:',
+        ],
+        bullets: [
+          'Build personalised workout plans',
+          'Access fitness guidance in Urdu and English',
+          'Generate goal-based nutrition recommendations',
+          'Track progress and milestones',
+          'Connect with trainers and fitness professionals',
+        ],
+      },
+      {
+        heading: 'Our Mission',
+        paragraphs: [
+          'Our mission is simple: to help people build healthier lives through technology, education, and consistent habits.',
+          "Whether you're taking your first steps toward better health or pursuing advanced fitness goals, SehatAI is designed to support your journey.",
+        ],
+      },
+    ],
+  },
   '/privacy': {
     title: 'Privacy Policy',
     intro: 'How SehatAI collects, uses, and protects your information.',
@@ -353,18 +384,218 @@ function Brand() {
   );
 }
 
+function sendFormByEmail(event: FormEvent<HTMLFormElement>, recipient: string, subject: string) {
+  event.preventDefault();
+  const fields = Array.from(new FormData(event.currentTarget).entries())
+    .map(([key, value]) => `${key}: ${String(value)}`)
+    .join('\n');
+  window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(fields)}`;
+}
+
 function SiteFooter() {
   return (
     <footer>
       <Brand />
-      <p>&copy; 2026 SehatAI. Built for a healthier Pakistan.</p>
+      <p>&copy; 2026 SehatAI. All rights reserved.</p>
       <div className="footer-links">
+        <a href="/about">About</a>
+        <a href="/trainers">For Trainers</a>
+        <a href="/waitlist">Waitlist</a>
         <a href="/privacy">Privacy</a>
         <a href="/terms">Terms</a>
         <a href="/support">Support</a>
         <a href="/delete-account">Delete Account</a>
       </div>
     </footer>
+  );
+}
+
+function WaitlistForm({ compact = false }: { compact?: boolean }) {
+  return (
+    <form
+      className={`site-form waitlist-form${compact ? ' compact-form' : ''}`}
+      onSubmit={(event) => sendFormByEmail(event, 'hello@sehatai.net', 'Join SehatAI Waitlist')}
+    >
+      <div className="form-grid">
+        <label>
+          <span>Name</span>
+          <input name="Name" type="text" placeholder="Your name" required />
+        </label>
+        <label>
+          <span>Email address</span>
+          <input name="Email" type="email" placeholder="you@example.com" required />
+        </label>
+        {!compact && (
+          <>
+            <label>
+              <span>Preferred language</span>
+              <select name="Preferred language" defaultValue="English and Urdu">
+                <option>English and Urdu</option>
+                <option>English</option>
+                <option>Urdu</option>
+              </select>
+            </label>
+            <label>
+              <span>Main fitness goal</span>
+              <select name="Fitness goal" defaultValue="General fitness">
+                <option>General fitness</option>
+                <option>Weight loss</option>
+                <option>Muscle gain</option>
+                <option>Healthy eating</option>
+              </select>
+            </label>
+          </>
+        )}
+      </div>
+      <label className="consent-row">
+        <input name="Launch updates" type="checkbox" value="Yes" required />
+        <span>I agree to receive SehatAI launch and product updates.</span>
+      </label>
+      <button className="cta form-submit" type="submit">
+        Join the waitlist <span className="arrow" aria-hidden="true">-&gt;</span>
+      </button>
+      <small className="form-note">Submitting opens your email app with the details ready to send.</small>
+    </form>
+  );
+}
+
+function TrainerApplicationPage() {
+  return (
+    <div className="site-shell content-shell">
+      <nav className="nav" aria-label="Main navigation">
+        <Brand />
+        <a className="nav-link" href="/">Back to home</a>
+      </nav>
+      <main className="form-page">
+        <header className="content-header">
+          <span className="section-kicker">Become a trainer</span>
+          <h1>Join the SehatAI Trainer Network</h1>
+          <p>Are you a certified fitness trainer, coach, or health professional?</p>
+        </header>
+        <div className="form-intro">
+          <h2>Grow with SehatAI</h2>
+          <p>Connect with motivated clients, manage bookings, and grow your fitness business through our platform.</p>
+        </div>
+        <div className="form-details">
+          <section>
+            <h2>Benefits</h2>
+            <ul>
+              <li>Reach new clients</li>
+              <li>Receive booking requests</li>
+              <li>Showcase your expertise</li>
+              <li>Build your personal brand</li>
+              <li>Expand your online presence</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Trainer Requirements</h2>
+            <p>To join the platform, trainers should:</p>
+            <ul>
+              <li>Be at least 18 years old</li>
+              <li>Have relevant fitness qualifications or professional experience</li>
+              <li>Provide accurate profile information</li>
+              <li>Follow professional and ethical standards</li>
+            </ul>
+          </section>
+        </div>
+        <div className="form-intro apply-intro">
+          <h2>Apply</h2>
+          <p>
+            Complete the form below or email <a href="mailto:trainers@sehatai.net">trainers@sehatai.net</a>.
+            Our team will review applications and contact suitable candidates.
+          </p>
+        </div>
+        <form className="site-form" onSubmit={(event) => sendFormByEmail(event, 'trainers@sehatai.net', 'SehatAI Trainer Network application')}>
+          <div className="form-grid">
+            <label><span>Full name</span><input name="Full name" type="text" required /></label>
+            <label><span>Email address</span><input name="Email" type="email" required /></label>
+            <label><span>Phone number</span><input name="Phone" type="tel" required /></label>
+            <label><span>City</span><input name="City" type="text" required /></label>
+            <label><span>Years of experience</span><input name="Years of experience" type="number" min="0" required /></label>
+            <label>
+              <span>Primary specialisation</span>
+              <select name="Specialisation" defaultValue="Personal training" required>
+                <option>Personal training</option>
+                <option>Strength and conditioning</option>
+                <option>Weight management</option>
+                <option>Yoga and mobility</option>
+                <option>Nutrition coaching</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label className="form-wide">
+              <span>Qualifications or certifications</span>
+              <input name="Qualifications" type="text" placeholder="Certification, institution, year" required />
+            </label>
+            <label className="form-wide">
+              <span>Social media or portfolio links (optional)</span>
+              <input name="Social media or portfolio" type="url" placeholder="https://" />
+            </label>
+            <label className="form-wide">
+              <span>Tell us about your coaching experience</span>
+              <textarea name="Experience summary" rows={6} required />
+            </label>
+          </div>
+          <label className="consent-row">
+            <input name="Information confirmed" type="checkbox" value="Yes" required />
+            <span>I confirm that the information provided is accurate and may be verified by SehatAI.</span>
+          </label>
+          <button className="cta form-submit" type="submit">
+            Submit application <span className="arrow" aria-hidden="true">-&gt;</span>
+          </button>
+          <small className="form-note">Submitting opens your email app with the application ready to send.</small>
+        </form>
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
+
+function WaitlistPage() {
+  return (
+    <div className="site-shell content-shell">
+      <nav className="nav" aria-label="Main navigation">
+        <Brand />
+        <a className="nav-link" href="/">Back to home</a>
+      </nav>
+      <main className="form-page waitlist-page">
+        <header className="content-header">
+          <span className="section-kicker">Join the waitlist</span>
+          <h1>Be First to Experience SehatAI</h1>
+          <p>SehatAI is preparing for public launch on Google Play.</p>
+        </header>
+        <div className="form-details waitlist-details">
+          <section>
+            <h2>Join our waitlist to receive</h2>
+            <ul>
+              <li>Early access opportunities</li>
+              <li>Product updates</li>
+              <li>New feature announcements</li>
+              <li>Fitness tips and resources</li>
+              <li>Exclusive launch offers</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Why Join?</h2>
+            <ul className="benefit-list">
+              <li>Early access to new features</li>
+              <li>Launch announcements</li>
+              <li>Exclusive promotions</li>
+              <li>Product updates</li>
+            </ul>
+          </section>
+        </div>
+        <div className="form-intro apply-intro">
+          <h2>Join the Waitlist</h2>
+          <p>
+            Complete the form below or email <a href="mailto:hello@sehatai.net">hello@sehatai.net</a>
+            {' '}with the subject "Join SehatAI Waitlist".
+          </p>
+        </div>
+        <WaitlistForm />
+      </main>
+      <SiteFooter />
+    </div>
   );
 }
 
@@ -462,7 +693,11 @@ function HomePage() {
     <div className="site-shell">
       <nav className="nav" aria-label="Main navigation">
         <Brand />
-        <a className="nav-link" href="#features">Explore features</a>
+        <div className="nav-links">
+          <a className="nav-link" href="/about">About</a>
+          <a className="nav-link" href="/trainers">For trainers</a>
+          <a className="nav-link" href="#features">Features</a>
+        </div>
       </nav>
       <main>
         <header className="hero">
@@ -508,13 +743,10 @@ function HomePage() {
           </div>
         </section>
         <section className="closing">
-          <span className="section-kicker">A better you is coming</span>
+          <span className="section-kicker">Your fitness journey starts here</span>
           <h2>Train smarter.<br /><span>Live stronger.</span></h2>
           <p>Fitness guidance that speaks your language and understands your life.</p>
-          <button className="cta cta-light" type="button">
-            Coming soon on Google Play
-            <span className="arrow" aria-hidden="true">-&gt;</span>
-          </button>
+          <WaitlistForm compact />
         </section>
       </main>
       <SiteFooter />
@@ -534,7 +766,7 @@ function ContentPage({ page }: { page: PageContent }) {
           <span className="section-kicker">SehatAI information</span>
           <h1>{page.title}</h1>
           <p>{page.intro}</p>
-          <span className="updated">Last updated: 12 June 2026</span>
+          {page.showUpdated !== false && <span className="updated">Last updated: 12 June 2026</span>}
         </header>
         <div className="content-body">
           {page.sections.map((section) => (
@@ -576,6 +808,8 @@ function ContentPage({ page }: { page: PageContent }) {
 
 function App() {
   const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  if (path === '/trainers') return <TrainerApplicationPage />;
+  if (path === '/waitlist') return <WaitlistPage />;
   return pages[path] ? <ContentPage page={pages[path]} /> : <HomePage />;
 }
 
