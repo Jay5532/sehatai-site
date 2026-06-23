@@ -1,0 +1,17 @@
+{
+  "name": "SehatAI",
+  "short_name": "SehatAI",
+  "description": "Pakistan's Urdu-first AI fitness coach.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060606",
+  "theme_color": "#d7ad55",
+  "icons": [
+    {
+      "src": "/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
