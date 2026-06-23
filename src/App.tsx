@@ -51,6 +51,16 @@ const appScreens = [
     caption: 'Track body checks, milestones, and transformation posts.',
     image: '/feature-progress.jpg',
   },
+  {
+    title: 'Trainer Booking',
+    caption: 'Find verified trainers and book live training sessions from the app.',
+    image: '/feature-live-training.jpg',
+  },
+  {
+    title: 'Upcoming Sessions',
+    caption: 'Check upcoming and past bookings so your training schedule stays clear.',
+    image: '/feature-bookings.jpg',
+  },
 ];
 
 const pages: Record<string, PageContent> = {
