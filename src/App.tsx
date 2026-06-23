@@ -5,6 +5,7 @@ type PageContent = {
   title: string;
   intro: string;
   showUpdated?: boolean;
+  updated?: string;
   sections: Array<{
     heading: string;
     paragraphs: string[];
@@ -78,6 +79,84 @@ const pages: Record<string, PageContent> = {
         paragraphs: [
           'Our mission is simple: to help people build healthier lives through technology, education, and consistent habits.',
           "Whether you're taking your first steps toward better health or pursuing advanced fitness goals, SehatAI is designed to support your journey.",
+        ],
+      },
+    ],
+  },
+  '/contact': {
+    title: 'Contact Us',
+    intro: "We're here to help.",
+    updated: '23 June 2026',
+    sections: [
+      {
+        heading: 'General Enquiries',
+        paragraphs: [
+          'Whether you have questions about your account, subscriptions, workouts, nutrition plans, trainer bookings, or technical issues, the SehatAI team is ready to assist.',
+          'For general questions about SehatAI, partnerships, feedback, or business enquiries:',
+          'hello@sehatai.net',
+        ],
+      },
+      {
+        heading: 'Customer Support',
+        paragraphs: [
+          "If you're experiencing issues with the app, subscriptions, payments, login access, or account management:",
+          'support@sehatai.net',
+          'To help us assist you faster, please include:',
+        ],
+        bullets: [
+          'Your registered email address',
+          'Device type (Android/iPhone)',
+          'A description of the issue',
+          'Screenshots if available',
+        ],
+        afterBullets: [
+          'We aim to respond within 2 business days.',
+        ],
+      },
+      {
+        heading: 'Trainer & Coach Enquiries',
+        paragraphs: [
+          'Fitness professionals interested in partnering with SehatAI can contact:',
+          'trainers@sehatai.net',
+          'Please include:',
+        ],
+        bullets: [
+          'Your full name',
+          'Qualifications and certifications',
+          'Experience level',
+          'Location',
+          'Social media or website links (optional)',
+        ],
+      },
+      {
+        heading: 'Before Contacting Support',
+        paragraphs: ['You may be able to resolve common issues by:'],
+        bullets: [
+          'Updating SehatAI to the latest version',
+          'Restarting the app',
+          'Checking your internet connection',
+          'Signing out and signing back in',
+        ],
+        afterBullets: [
+          'Never send passwords or sensitive payment information by email.',
+        ],
+      },
+      {
+        heading: 'Health & Safety Notice',
+        paragraphs: [
+          'SehatAI provides fitness and nutrition guidance for informational purposes only and is not a medical service.',
+          'If you experience pain, dizziness, breathing difficulties, or any other concerning symptoms during exercise, stop immediately and seek advice from a qualified healthcare professional.',
+          'SehatAI cannot provide emergency or medical assistance.',
+        ],
+      },
+      {
+        heading: 'Response Times',
+        paragraphs: [],
+        bullets: [
+          'General enquiries: 1-3 business days',
+          'Technical support: 1-2 business days',
+          'Account deletion requests: up to 30 days after verification',
+          'Trainer applications: typically within 5 business days',
         ],
       },
     ],
@@ -401,6 +480,7 @@ function SiteFooter() {
         <a href="/about">About</a>
         <a href="/trainers">For Trainers</a>
         <a href="/waitlist">Waitlist</a>
+        <a href="/contact">Contact</a>
         <a href="/privacy">Privacy</a>
         <a href="/terms">Terms</a>
         <a href="/support">Support</a>
@@ -696,6 +776,7 @@ function HomePage() {
         <div className="nav-links">
           <a className="nav-link" href="/about">About</a>
           <a className="nav-link" href="/trainers">For trainers</a>
+          <a className="nav-link" href="/contact">Contact</a>
           <a className="nav-link" href="#features">Features</a>
         </div>
       </nav>
@@ -766,7 +847,7 @@ function ContentPage({ page }: { page: PageContent }) {
           <span className="section-kicker">SehatAI information</span>
           <h1>{page.title}</h1>
           <p>{page.intro}</p>
-          {page.showUpdated !== false && <span className="updated">Last updated: 12 June 2026</span>}
+          {page.showUpdated !== false && <span className="updated">Last updated: {page.updated ?? '12 June 2026'}</span>}
         </header>
         <div className="content-body">
           {page.sections.map((section) => (
@@ -774,8 +855,8 @@ function ContentPage({ page }: { page: PageContent }) {
               <h2>{section.heading}</h2>
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph}>
-                  {paragraph === 'support@sehatai.net'
-                    ? <a href="mailto:support@sehatai.net">{paragraph}</a>
+                  {['hello@sehatai.net', 'support@sehatai.net', 'trainers@sehatai.net'].includes(paragraph)
+                    ? <a href={`mailto:${paragraph}`}>{paragraph}</a>
                     : paragraph}
                 </p>
               ))}
